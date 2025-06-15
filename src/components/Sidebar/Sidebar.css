@@ -1,0 +1,173 @@
+/* src/components/Sidebar/Sidebar.css */
+
+.sidebar {
+    min-height: 100vh;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #f0f4f9;
+    padding: 25px 15px;
+
+    /* --- ANIMATION PROPERTIES START --- */
+    width: 70px; /* Default collapsed width */
+    transition: width 0.3s ease-in-out; /* Smooth transition for width change */
+    /* Removed transform from here, as we are mainly animating width */
+    position: fixed; /* Keep it fixed on the left */
+    left: 0;
+    top: 0;
+    z-index: 100; /* Ensure it's above other content */
+    /* If you want a slide effect, you'd apply transform: translateX() here and on .extended */
+    /* Example for sliding: */
+    /* transform: translateX(-100%);  // Starts off-screen */
+    /* transition: width 0.3s ease-in-out, transform 0.3s ease-in-out; */
+    /* --- ANIMATION PROPERTIES END --- */
+}
+
+/* State when the sidebar is extended */
+.sidebar.extended {
+    width: 250px; /* Expanded width */
+    /* Example for sliding: */
+    /* transform: translateX(0); // Slides into view */
+}
+
+
+.sidebar img {
+    width: 20px;
+}
+
+.sidebar .menu {
+    display: block;
+    margin-left: 10px;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out; /* Smooth rotation for menu icon */
+}
+
+/* Optional: Rotate menu icon when extended */
+.sidebar.extended .menu {
+    transform: rotate(180deg);
+}
+
+
+.sidebar .new-chat {
+    margin-top: 50px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 15px;
+    background-color: #e6eaf1;
+    border-radius: 50px;
+    font-size: 14px;
+    color: gray;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+}
+.sidebar .new-chat:hover {
+    background-color: #dce0e6;
+}
+
+/* --- ANIMATION FOR TEXT INSIDE NEW CHAT AND OTHER ITEMS --- */
+/* Apply to all relevant p tags that should animate */
+.sidebar .new-chat p,
+.sidebar .recent-title, /* Added recent-title here */
+.sidebar .recent-entry p, /* Specific to the p tag inside recent-entry */
+.sidebar .bottom-item p {
+    opacity: 0; /* Hidden by default (collapsed state) */
+    width: 0; /* Takes no horizontal space */
+    transition: opacity 0.3s ease-in-out, width 0.3s ease-in-out;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    pointer-events: none; /* Prevent clicks when hidden */
+}
+
+/* When the sidebar is extended, make the text visible and take up space */
+.sidebar.extended .new-chat p,
+.sidebar.extended .recent-title,
+.sidebar.extended .recent-entry p,
+.sidebar.extended .bottom-item p {
+    opacity: 1; /* Visible when extended */
+    width: auto; /* Takes natural width */
+    pointer-events: auto; /* Enable clicks when visible */
+}
+/* --- END ANIMATION FOR TEXT --- */
+
+
+.sidebar .recent {
+    display: flex;
+    flex-direction: column;
+    /* Optional: Fade in/out the entire recent section */
+    /* This makes the whole list appear/disappear at once, not individual items */
+    opacity: 0; /* Hidden by default */
+    transition: opacity 0.3s ease-in-out 0.1s; /* Added a slight delay for better effect */
+    flex-grow: 1; /* Allow it to take available space */
+    overflow-y: auto; /* Enable scrolling for many entries */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+}
+/* Hide scrollbar for Chrome, Safari, Opera */
+.sidebar .recent::-webkit-scrollbar {
+    display: none;
+}
+
+.sidebar.extended .recent {
+    opacity: 1; /* Visible when extended */
+    margin-top: 20px; /* Add some top margin for spacing */
+}
+
+.sidebar .recent-title {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    color: #1c4c5b;
+    font-weight: 600;
+    /* transition properties are now moved to the group selector above */
+}
+
+.sidebar .recent-entry {
+    display: flex;
+    align-items: start;
+    gap: 10px;
+    padding: 10px;
+    padding-right: 40px;
+    border-radius: 50px;
+    color: #282828;
+    cursor: pointer;
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+    /* The text inside p is handled by the group selector for opacity/width */
+}
+
+.sidebar .recent-entry:hover {
+    background-color: #e2e6eb;
+}
+
+.sidebar .recent-entry img {
+    width: 18px;
+    margin-top: 2px;
+    flex-shrink: 0;
+}
+
+
+.sidebar .bottom {
+    display: flex;
+    flex-direction: column;
+    margin-top: auto; /* Push to the bottom */
+}
+
+.sidebar .bottom-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    padding-right: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    color: #282828;
+    transition: background-color 0.3s ease;
+}
+
+.sidebar .bottom-item:hover {
+    background-color: #e2e6eb;
+}
+
+.sidebar .bottom-item img {
+    width: 20px;
+    flex-shrink: 0;
+}

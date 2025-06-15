@@ -1,0 +1,288 @@
+/* src/Main.css */
+
+.main {
+    flex: 1;
+    min-height: 100vh;
+    /* This padding-bottom now reserves space for the absolutely positioned main-bottom */
+    padding-bottom: 140px; /* Increased to ensure enough space for the prompt box */
+    position: relative; /* Crucial for main-bottom's absolute positioning */
+    margin-left: 70px; /* Default sidebar width */
+    transition: margin-left 0.3s ease-in-out; /* Animate margin change */
+    display: flex; /* Make .main a flex container */
+    flex-direction: column; /* Stack children vertically */
+}
+
+/* Adjust main content margin when sidebar is extended */
+.sidebar.extended + .main { /* Selects .main when it's a sibling of .sidebar.extended */
+    margin-left: 250px; /* Matches extended sidebar width */
+}
+
+
+.main .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 22px;
+    padding: 20px;
+    color: #585858;
+}
+
+.main .nav img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+/* Renamed from .main-container to .main-content-area */
+.main-content-area {
+    max-width: 900px;
+    margin: auto; /* Centers the content area horizontally */
+    width: 100%; /* Ensure it takes full width of its parent */
+    flex-grow: 1; /* Allows it to take all available vertical space */
+    display: flex; /* Make it a flex container for its own children */
+    flex-direction: column; /* Stack its children (greet/cards or result) vertically */
+    /* Remove justify-content: space-between; from here, as main-bottom is no longer its child */
+    padding: 0 20px; /* Add some horizontal padding */
+    box-sizing: border-box; /* Include padding in width calculation */
+
+    /* --- ANIMATION FOR MAIN CONTENT --- */
+    transition: opacity 0.5s ease-in-out; /* Smooth fade for the entire container */
+}
+
+/* Keyframe animation for a fade-in effect */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); } /* Start slightly lower and invisible */
+    to { opacity: 1; transform: translateY(0); } /* End fully visible at normal position */
+}
+
+/* Apply fade-in animation to the content sections */
+.fade-in-section {
+    animation: fadeIn 0.7s ease-out forwards; /* 0.7s duration, ease-out timing, stays at end state */
+    opacity: 0; /* Ensures it starts invisible before animation */
+}
+
+
+.main .greet {
+    margin: 50px 0px;
+    font-size: 56px;
+    color: #c4c7c5;
+    font-weight: 500;
+    padding: 0px 20px; /* Ensure padding for greet */
+    flex-grow: 1; /* Allows greet to take up available space in the column */
+}
+
+.main .greet span {
+  background: linear-gradient(16deg, #2e1a47, #00c9c8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.main .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    /* margin-bottom not needed here as main-bottom is absolutely positioned outside */
+}
+
+.main .card {
+    height: 200px;
+    padding: 15px;
+    /* --- MODIFIED: Card Background to be the exact gradient --- */
+    background: linear-gradient(16deg, #2e1a47, #00c9c8); /* Apply the gradient directly */
+    border-radius: 10px;
+    position: relative;
+    cursor: pointer;
+}
+
+.main .card img {
+    width: 35px;
+    padding: 5px;
+    position: absolute;
+    background-color: white; /* Keep icon background white for visibility */
+    border-radius: 20px;
+    bottom: 10px;
+    right: 10px;
+}
+
+.main .card p {
+    /* --- MODIFIED: Card Text Color --- */
+    color: white; /* White text for contrast on gradient background */
+    font-size: 17px;
+}
+
+.main .card:hover {
+    /* --- MODIFIED: Card Hover Background Color --- */
+    /* For a gradient, you might want to adjust the gradient slightly on hover,
+       or apply a subtle shadow/scale effect instead of changing the gradient drastically.
+       Here, I'll invert the gradient direction or slightly change its colors for a subtle effect. */
+    background: linear-gradient(196deg, #2e1a47, #00c9c8); /* Slightly different angle for hover */
+    /* Or a more pronounced effect: */
+    /* background: linear-gradient(16deg, #00c9c8, #2e1a47); */ /* Swapped colors */
+    /* You could also add: transform: scale(1.02); to make it pop */
+}
+
+.main-bottom {
+    position: absolute; /* Fixes it relative to .main */
+    bottom: 0; /* Aligns to the bottom of .main */
+    width: 100%; /* Spans the width of .main (adjusted for padding) */
+    max-width: 900px; /* Matches the max-width of main-content-area */
+    left: 50%; /* Centers it */
+    transform: translateX(-50%); /* Fine-tunes centering */
+    box-sizing: border-box; /* Include padding in width */
+    background-color: white; /* Ensure a solid background */
+    padding: 15px 20px; /* Adjusted padding for top and sides */
+    /* Adjust z-index if it appears behind other elements */
+    z-index: 10;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    background-color: #f0f4f9;
+    padding: 10px 20px;
+    border-radius: 50px;
+}
+
+.search-box img {
+    width: 24px;
+    cursor: pointer;
+}
+
+.search-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 8px;
+    font-size: 18px;
+}
+
+.search-box div {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.main .bottom-info {
+    font-size: 12px;
+    margin: 15px auto;
+    text-align: center;
+    font-weight: 400;
+    color: #5e5e5e;
+    /* padding-top removed as padding is now on main-bottom directly */
+}
+
+.result {
+    padding: 0px 5%; /* Keep horizontal padding */
+    max-height: 70vh; /* Allow scrolling for long results */
+    overflow-y: scroll;
+    flex-grow: 1; /* Allow result section to grow and fill space */
+    /* padding-bottom not strictly necessary here, as main's padding-bottom handles the space */
+    /* You can add a small padding-bottom if you want some extra space at the end of scrolling results before the bottom bar */
+    padding-bottom: 20px; /* Small buffer */
+}
+
+/* Hide scrollbar for Chrome, Safari, Opera */
+.result::-webkit-scrollbar {
+    display: none;
+}
+/* Hide scrollbar for IE, Edge, Firefox */
+.result {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+
+.result-title {
+    margin: 40px 0px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.result img {
+    width: 40px;
+    border-radius: 50%;
+}
+
+.result-data {
+    display: flex;
+    align-items: start;
+    gap: 20px;
+}
+
+.result-data p {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.8;
+    color: #585858;
+}
+
+
+/* LDS ELLIPSIS LOADER STYLES */
+.lds-ellipsis {
+    color: #1c4c5b;
+    width: 40px;
+    height: 40px;
+    margin-left: 5px;
+    display: inline-block;
+    position: relative;
+}
+
+.lds-ellipsis,
+.lds-ellipsis div {
+    box-sizing: border-box;
+}
+
+.lds-ellipsis div {
+    position: absolute;
+    top: 16.66666px;
+    width: 6.66666px;
+    height: 6.66666px;
+    border-radius: 50%;
+    background: currentColor;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+
+.lds-ellipsis div:nth-child(1) {
+    left: 4px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+    left: 4px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+    left: 16px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+    left: 28px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(12px, 0);
+    }
+}
