@@ -95,8 +95,8 @@ const Main = () => {
                 <img src={assets.user_icon} alt="User Icon"></img>
             </div>
 
-            {/* THIS IS THE FADING CONTENT AREA */}
-            {/* We'll rename main-container to main-content-area */}
+            {}
+            {}
             <div className={`main-content-area fade-in-section`} key={contentKey}>
 
                 {!showResult

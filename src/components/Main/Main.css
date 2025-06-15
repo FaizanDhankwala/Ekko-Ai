@@ -1,20 +1,20 @@
-/* src/Main.css */
+
 
 .main {
     flex: 1;
     min-height: 100vh;
-    /* This padding-bottom now reserves space for the absolutely positioned main-bottom */
-    padding-bottom: 140px; /* Increased to ensure enough space for the prompt box */
-    position: relative; /* Crucial for main-bottom's absolute positioning */
-    margin-left: 70px; /* Default sidebar width */
-    transition: margin-left 0.3s ease-in-out; /* Animate margin change */
-    display: flex; /* Make .main a flex container */
-    flex-direction: column; /* Stack children vertically */
+  
+    padding-bottom: 140px; 
+    position: relative; 
+    margin-left: 70px; 
+    transition: margin-left 0.3s ease-in-out; 
+    display: flex; 
+    flex-direction: column; 
 }
 
-/* Adjust main content margin when sidebar is extended */
-.sidebar.extended + .main { /* Selects .main when it's a sibling of .sidebar.extended */
-    margin-left: 250px; /* Matches extended sidebar width */
+
+.sidebar.extended + .main { 
+    margin-left: 250px; 
 }
 
 
@@ -32,32 +32,32 @@
     border-radius: 50%;
 }
 
-/* Renamed from .main-container to .main-content-area */
+
 .main-content-area {
     max-width: 900px;
-    margin: auto; /* Centers the content area horizontally */
-    width: 100%; /* Ensure it takes full width of its parent */
-    flex-grow: 1; /* Allows it to take all available vertical space */
-    display: flex; /* Make it a flex container for its own children */
-    flex-direction: column; /* Stack its children (greet/cards or result) vertically */
-    /* Remove justify-content: space-between; from here, as main-bottom is no longer its child */
-    padding: 0 20px; /* Add some horizontal padding */
-    box-sizing: border-box; /* Include padding in width calculation */
+    margin: auto; 
+    width: 100%; 
+    flex-grow: 1; 
+    display: flex; 
+    flex-direction: column; 
+ 
+    padding: 0 20px; 
+    box-sizing: border-box; 
 
-    /* --- ANIMATION FOR MAIN CONTENT --- */
-    transition: opacity 0.5s ease-in-out; /* Smooth fade for the entire container */
+ 
+    transition: opacity 0.5s ease-in-out; 
 }
 
-/* Keyframe animation for a fade-in effect */
+
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); } /* Start slightly lower and invisible */
-    to { opacity: 1; transform: translateY(0); } /* End fully visible at normal position */
+    from { opacity: 0; transform: translateY(20px); } 
+    to { opacity: 1; transform: translateY(0); } 
 }
 
-/* Apply fade-in animation to the content sections */
+
 .fade-in-section {
-    animation: fadeIn 0.7s ease-out forwards; /* 0.7s duration, ease-out timing, stays at end state */
-    opacity: 0; /* Ensures it starts invisible before animation */
+    animation: fadeIn 0.7s ease-out forwards; 
+    opacity: 0; 
 }
 
 
@@ -66,8 +66,8 @@
     font-size: 56px;
     color: #c4c7c5;
     font-weight: 500;
-    padding: 0px 20px; /* Ensure padding for greet */
-    flex-grow: 1; /* Allows greet to take up available space in the column */
+    padding: 0px 20px; 
+    flex-grow: 1; 
 }
 
 .main .greet span {
@@ -81,14 +81,14 @@
     grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
     gap: 15px;
     padding: 20px;
-    /* margin-bottom not needed here as main-bottom is absolutely positioned outside */
+    
 }
 
 .main .card {
     height: 200px;
     padding: 15px;
-    /* --- MODIFIED: Card Background to be the exact gradient --- */
-    background: linear-gradient(16deg, #2e1a47, #00c9c8); /* Apply the gradient directly */
+  
+    background: linear-gradient(16deg, #2e1a47, #00c9c8); 
     border-radius: 10px;
     position: relative;
     cursor: pointer;
@@ -98,40 +98,35 @@
     width: 35px;
     padding: 5px;
     position: absolute;
-    background-color: white; /* Keep icon background white for visibility */
+    background-color: white; 
     border-radius: 20px;
     bottom: 10px;
     right: 10px;
 }
 
 .main .card p {
-    /* --- MODIFIED: Card Text Color --- */
-    color: white; /* White text for contrast on gradient background */
+ 
+    color: white; 
     font-size: 17px;
 }
 
 .main .card:hover {
-    /* --- MODIFIED: Card Hover Background Color --- */
-    /* For a gradient, you might want to adjust the gradient slightly on hover,
-       or apply a subtle shadow/scale effect instead of changing the gradient drastically.
-       Here, I'll invert the gradient direction or slightly change its colors for a subtle effect. */
-    background: linear-gradient(196deg, #2e1a47, #00c9c8); /* Slightly different angle for hover */
-    /* Or a more pronounced effect: */
-    /* background: linear-gradient(16deg, #00c9c8, #2e1a47); */ /* Swapped colors */
-    /* You could also add: transform: scale(1.02); to make it pop */
+ 
+    background: linear-gradient(196deg, #2e1a47, #00c9c8); 
+
 }
 
 .main-bottom {
-    position: absolute; /* Fixes it relative to .main */
-    bottom: 0; /* Aligns to the bottom of .main */
-    width: 100%; /* Spans the width of .main (adjusted for padding) */
-    max-width: 900px; /* Matches the max-width of main-content-area */
-    left: 50%; /* Centers it */
-    transform: translateX(-50%); /* Fine-tunes centering */
-    box-sizing: border-box; /* Include padding in width */
-    background-color: white; /* Ensure a solid background */
-    padding: 15px 20px; /* Adjusted padding for top and sides */
-    /* Adjust z-index if it appears behind other elements */
+    position: absolute;
+    bottom: 0; 
+    width: 100%; 
+    max-width: 900px; 
+    left: 50%; 
+    transform: translateX(-50%);
+    box-sizing: border-box; 
+    background-color: white; 
+    padding: 15px 20px; 
+    
     z-index: 10;
 }
 
@@ -171,24 +166,23 @@
     text-align: center;
     font-weight: 400;
     color: #5e5e5e;
-    /* padding-top removed as padding is now on main-bottom directly */
+    
 }
 
 .result {
-    padding: 0px 5%; /* Keep horizontal padding */
-    max-height: 70vh; /* Allow scrolling for long results */
+    padding: 0px 5%; 
+    max-height: 70vh; 
     overflow-y: scroll;
-    flex-grow: 1; /* Allow result section to grow and fill space */
-    /* padding-bottom not strictly necessary here, as main's padding-bottom handles the space */
-    /* You can add a small padding-bottom if you want some extra space at the end of scrolling results before the bottom bar */
-    padding-bottom: 20px; /* Small buffer */
+    flex-grow: 1; 
+  
+    padding-bottom: 20px; 
 }
 
-/* Hide scrollbar for Chrome, Safari, Opera */
+
 .result::-webkit-scrollbar {
     display: none;
 }
-/* Hide scrollbar for IE, Edge, Firefox */
+
 .result {
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -221,7 +215,7 @@
 }
 
 
-/* LDS ELLIPSIS LOADER STYLES */
+
 .lds-ellipsis {
     color: #1c4c5b;
     width: 40px;

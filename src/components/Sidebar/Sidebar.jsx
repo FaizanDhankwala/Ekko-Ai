@@ -38,9 +38,9 @@ const Sidebar = () => {
 
   const toggleModal = (modal) => {
     if (activeModal === modal) {
-      setActiveModal(null); // close if already open
+      setActiveModal(null); 
     } else {
-      setActiveModal(modal); // open requested modal
+      setActiveModal(modal); 
     }
   };
 
