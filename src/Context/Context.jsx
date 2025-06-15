@@ -1,4 +1,3 @@
-// src/Context/Context.jsx
 import { createContext, useState } from "react";
 import { runChat } from "../config/gemini";
 
@@ -33,7 +32,7 @@ const ContextProvider = (props) => {
     const onSent = async (prompt_val) => {
         setLoading(true);
         setShowResult(true);
-        setResultData(""); // Clear existing result for a new API response
+        setResultData(""); 
 
         let currentPrompt = prompt_val || input;
         setRecentPrompt(currentPrompt);
@@ -59,32 +58,42 @@ const ContextProvider = (props) => {
             };
             setPrevPrompts(prev => [...prev, newHistoryEntry]);
 
-            setLoading(false); // <--- Important: loading set to false after API call
+            setLoading(false); 
             await typeResultData(formattedResponse);
 
         } catch (error) {
             console.error("Error in onSent:", error);
             setResultData("An error occurred while fetching the response from Ekko. Please try again.");
-            setLoading(false); // Ensure loading is turned off even on error
+            setLoading(false);
         } finally {
             setInput("");
         }
     };
 
-    const contextValue = {
-        prevPrompts,
-        setPrevPrompts,
-        onSent,
-        setRecentPrompt,
-        recentPrompt,
-        showResult,
-        loading,
-        setLoading, // <--- THIS MUST BE HERE
-        resultData,
-        input,
-        setInput,
-        newChat
+    const loadPreviousPrompt = (promptObj) => {
+        setRecentPrompt(promptObj.prompt);
+        setResultData(promptObj.response);
+        setShowResult(true);
     };
+
+const contextValue = {
+    prevPrompts,
+    setPrevPrompts,
+    onSent,
+    setRecentPrompt,
+    recentPrompt,
+    showResult,
+    setShowResult, 
+    loading,
+    setLoading,
+    resultData,
+    setResultData,
+    input,
+    setInput,
+    newChat,
+    loadPreviousPrompt,
+    typeResultData 
+};
 
     return (
         <Context.Provider value={contextValue}>
