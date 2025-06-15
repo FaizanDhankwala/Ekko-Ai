@@ -68,7 +68,7 @@ const Main = () => {
                     }, 50); // Deleting speed
                 } else {
                     setIsDeleting(false);
-                    setGreetingIndex(prev => (prev + 1) % greetings.length); // Move to next greeting
+                    setGreetingIndex(prev => (prev + 1) % greetings.length); // Move to next greeting ajajaj
                     // No need to reset charIndex here, as it will be 0 when typing starts again
                     typingTimer = setTimeout(typeWriter, 500); // Pause before typing next word
                 }
