@@ -1,13 +1,12 @@
-// src/config/gemini.js
+
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Use import.meta.env for Vite environment variables
+
 const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
 if (!API_KEY) {
     console.error("GEMINI_API_KEY is not set in environment variables. Please check your .env file and ensure it uses VITE_ prefix.");
-    // Consider throwing an error or rendering a fallback UI in a real application
-    // throw new Error("GEMINI_API_KEY is not configured.");
+    
 }
 
 const genAI = new GoogleGenerativeAI(API_KEY);
@@ -29,8 +28,7 @@ async function runChat(prompt) {
             ],
         });
 
-        // --- THE FIX IS HERE ---
-        // The prompt now needs to be an array of Parts as well.
+       
         const result = await chat.sendMessage([{ text: prompt }]);
         const response = await result.response;
         const text = response.text();
